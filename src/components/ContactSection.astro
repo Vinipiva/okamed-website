@@ -1,6 +1,6 @@
 ---
 import { useTranslations } from "../i18n/utils";
-const t = useTranslations(Astro.currentLocale);
+const t = useTranslations(Astro.currentLocale ?? (Astro.url.pathname.startsWith('/es/') ? 'es' : 'pt'));
 
 const contactIcons = [
   `<svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M14.5 12.5c-.7-.7-1.5-.7-2.2 0l-.9.9c-.2.2-.4.2-.6.1-1.2-.7-2.3-1.6-3.3-2.6S5.7 9.2 5 8c-.1-.2-.1-.4.1-.6l.9-.9c.7-.7.7-1.5 0-2.2L4.7 3c-.7-.7-1.5-.7-2.2 0L1.6 3.9C.6 4.9.5 6.2 1 7.4c1.2 3 3.4 5.7 6.1 7.8 2.3 1.8 5 2.8 7.5 2.8.8 0 1.5-.3 2-.8l.9-.9c.7-.7.7-1.5 0-2.2l-2-1.6z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>`,

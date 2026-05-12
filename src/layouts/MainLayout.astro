@@ -2,7 +2,7 @@
 import "../styles/global.css";
 import { useTranslations } from "../i18n/utils";
 
-const locale = Astro.currentLocale ?? 'pt';
+const locale = Astro.currentLocale ?? (Astro.url.pathname.startsWith('/es/') ? 'es' : 'pt');
 const t = useTranslations(locale);
 
 const {

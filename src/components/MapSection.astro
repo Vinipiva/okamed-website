@@ -1,6 +1,6 @@
 ---
 import { useTranslations } from "../i18n/utils";
-const t = useTranslations(Astro.currentLocale);
+const t = useTranslations(Astro.currentLocale ?? (Astro.url.pathname.startsWith('/es/') ? 'es' : 'pt'));
 
 const cities = [
   { name: "São Paulo",       uf: "SP", lat: -23.5505, lng: -46.6333, size: "lg" },

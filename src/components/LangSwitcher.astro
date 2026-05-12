@@ -1,5 +1,5 @@
 ---
-const currentLocale = Astro.currentLocale ?? 'pt';
+const currentLocale = Astro.currentLocale ?? (Astro.url.pathname.startsWith('/es/') ? 'es' : 'pt');
 const ptHref = '/';
 const esHref = '/es/';
 ---
