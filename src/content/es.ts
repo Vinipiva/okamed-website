@@ -182,18 +182,8 @@ export const es = {
     label: 'Hablemos',
     title: 'Habla con\nOkamed',
     description:
-      'Envíe sus datos y nuestro equipo responderá con el encaminamiento adecuado para su institución.',
+      'Nuestro equipo está listo para apoyar su institución con soluciones estratégicas en ingeniería clínica.',
     cta: 'Contactar por WhatsApp',
-    form: {
-      title: 'Solicitar contacto',
-      name: 'Nombre',
-      email: 'Correo electrónico',
-      phone: 'Teléfono',
-      company: 'Institución',
-      message: '¿Cómo podemos ayudar?',
-      consent: 'Acepto enviar mis datos para que Okamed responda esta solicitud.',
-      submit: 'Enviar solicitud',
-    },
     contacts: [
       { label: 'WhatsApp',         value: '+55 (17) 99284-2335',                href: 'https://wa.me/5517992842335' },
       { label: 'Correo Comercial', value: 'comercial@okamed.com.br',            href: 'mailto:comercial@okamed.com.br' },

@@ -1,293 +1,105 @@
 ---
 import MainLayout from '../../layouts/MainLayout.astro';
-import { useTranslations } from '../../i18n/utils';
-
-const t = useTranslations('es');
 ---
 
-<MainLayout title="Política de Privacidad — Okamed" description="Conozca cómo Okamed protege y trata sus datos de conformidad con la LGPD (Ley General de Protección de Datos).">
-  
-  <section class="min-h-screen bg-white">
-    <!-- Header -->
-    <div class="bg-gradient-to-br from-[#0B2E4E] to-[#1E537E] text-white py-20 px-6">
-      <div class="max-w-4xl mx-auto">
-        <h1 class="text-4xl md:text-5xl font-light mb-4">Política de Privacidad</h1>
-        <p class="text-base md:text-lg opacity-90">Última actualización: {new Date().toLocaleDateString('es-ES')}</p>
+<MainLayout
+  title="Política de Privacidad — Okamed"
+  description="Política de Privacidad de Okamed para comunicaciones iniciadas desde los canales del sitio."
+>
+  <main class="privacy-page">
+    <section class="privacy-hero">
+      <div class="privacy-shell">
+        <p class="section-label mb-4">Privacidad</p>
+        <h1>Política de Privacidad</h1>
+        <p>Actualizada el 12 de mayo de 2026.</p>
       </div>
-    </div>
+    </section>
 
-    <!-- Content -->
-    <div class="max-w-4xl mx-auto px-6 py-20">
-      
-      <!-- Introdução -->
-      <div class="mb-12 p-6 bg-blue-50 rounded-lg border border-blue-100">
-        <p class="text-sm font-semibold text-[#0B2E4E] mb-2">AVISO IMPORTANTE</p>
-        <p class="text-slate-700 leading-relaxed">
-          Okamed — Ingeniería Clínica se compromete a proteger sus datos personales. Esta Política de Privacidad describe cómo recopilamos, utilizamos, compartimos y protegemos su información, en conformidad con la <strong>Ley General de Protección de Datos (LGPD - Lei nº 13.709/2018)</strong>.
-        </p>
-      </div>
+    <section class="privacy-shell privacy-content">
+      <p>
+        Esta política explica cómo Okamed trata los datos personales compartidos cuando el visitante inicia contacto por los canales indicados en el sitio.
+      </p>
 
-      <!-- Seções -->
-      <div class="space-y-10">
+      <h2>1. Datos recopilados</h2>
+      <p>
+        Podemos recibir nombre, correo electrónico, teléfono, institución y el contenido del mensaje enviado voluntariamente por el usuario.
+      </p>
 
-        <!-- 1. Datos Recopilados -->
-        <section>
-          <h2 class="text-2xl font-semibold text-[#0B2E4E] mb-4">1. Datos que Recopilamos</h2>
-          <p class="text-slate-600 mb-4 leading-relaxed">
-            Recopilamos datos personales que nos proporciona directamente o que se recopilan automáticamente cuando utiliza nuestros servicios:
-          </p>
-          <ul class="space-y-3 ml-6">
-            <li class="flex gap-3">
-              <span class="text-[#2970A3] font-bold">•</span>
-              <div>
-                <strong class="text-[#0B2E4E]">Datos de Contacto:</strong>
-                <p class="text-slate-600">Nombre, correo electrónico, teléfono, dirección, CNPJ (para empresas)</p>
-              </div>
-            </li>
-            <li class="flex gap-3">
-              <span class="text-[#2970A3] font-bold">•</span>
-              <div>
-                <strong class="text-[#0B2E4E]">Datos de Navegación:</strong>
-                <p class="text-slate-600">Dirección IP, tipo de navegador, páginas visitadas, hora de acceso</p>
-              </div>
-            </li>
-            <li class="flex gap-3">
-              <span class="text-[#2970A3] font-bold">•</span>
-              <div>
-                <strong class="text-[#0B2E4E]">Datos Transaccionales:</strong>
-                <p class="text-slate-600">Información relacionada con pedidos, contratos y pagos</p>
-              </div>
-            </li>
-            <li class="flex gap-3">
-              <span class="text-[#2970A3] font-bold">•</span>
-              <div>
-                <strong class="text-[#0B2E4E]">Datos Técnicos:</strong>
-                <p class="text-slate-600">Cookies, tokens de sesión, identificadores únicos</p>
-              </div>
-            </li>
-          </ul>
-        </section>
+      <h2>2. Finalidad del tratamiento</h2>
+      <p>
+        Usamos esos datos para responder solicitudes comerciales, institucionales o de atención iniciadas por el propio visitante.
+      </p>
 
-        <!-- 2. Base Legal -->
-        <section>
-          <h2 class="text-2xl font-semibold text-[#0B2E4E] mb-4">2. Base Legal para el Tratamiento</h2>
-          <p class="text-slate-600 mb-4 leading-relaxed">
-            Conforme a la LGPD, el tratamiento de sus datos se fundamenta en:
-          </p>
-          <ul class="space-y-2 ml-6 text-slate-600">
-            <li>✓ <strong>Consentimiento:</strong> Cuando nos autoriza expresamente</li>
-            <li>✓ <strong>Ejecución de Contrato:</strong> Para cumplir obligaciones contractuales</li>
-            <li>✓ <strong>Interés Legítimo:</strong> Para mejorar nuestros servicios y seguridad</li>
-            <li>✓ <strong>Obligación Legal:</strong> Cuando es requerido por ley o autoridades</li>
-            <li>✓ <strong>Protección de la Vida:</strong> En situaciones de urgencia médica o seguridad</li>
-          </ul>
-        </section>
+      <h2>3. Base legal</h2>
+      <p>
+        El tratamiento se realiza para viabilizar la respuesta solicitada por el titular y, cuando corresponda, con base en gestiones preliminares relacionadas con una posible contratación.
+      </p>
 
-        <!-- 3. Uso de los Datos -->
-        <section>
-          <h2 class="text-2xl font-semibold text-[#0B2E4E] mb-4">3. Cómo Utilizamos Sus Datos</h2>
-          <p class="text-slate-600 mb-4 leading-relaxed">
-            Utilizamos su información para:
-          </p>
-          <ul class="space-y-2 ml-6 text-slate-600">
-            <li>• Proporcionar, mantener y mejorar nuestros productos y servicios</li>
-            <li>• Procesar transacciones y enviar confirmaciones</li>
-            <li>• Responder a sus consultas y solicitudes</li>
-            <li>• Enviar comunicaciones relevantes (solo con consentimiento)</li>
-            <li>• Analizar el uso para optimizar la experiencia del usuario</li>
-            <li>• Cumplir obligaciones legales y regulatorias</li>
-            <li>• Detectar, prevenir y resolver fraudes o problemas de seguridad</li>
-          </ul>
-        </section>
+      <h2>4. Compartición y conservación</h2>
+      <p>
+        Los datos no se venden. Pueden ser accedidos por proveedores estrictamente necesarios para el alojamiento y operación del sitio, cuando corresponda. Conservamos la información durante el tiempo necesario para atender la solicitud y cumplir obligaciones legales.
+      </p>
 
-        <!-- 4. Compartición de Datos -->
-        <section>
-          <h2 class="text-2xl font-semibold text-[#0B2E4E] mb-4">4. Compartición de Datos</h2>
-          <p class="text-slate-600 mb-4 leading-relaxed">
-            Sus datos pueden ser compartidos con:
-          </p>
-          <ul class="space-y-2 ml-6 text-slate-600">
-            <li>• <strong>Proveedores de Servicios:</strong> Proveedores que procesan datos en nuestro nombre (hosting, análisis, pago)</li>
-            <li>• <strong>Organismos Públicos:</strong> Cuando es obligatorio por ley u orden judicial</li>
-            <li>• <strong>Sucesores:</strong> En caso de fusión, adquisición o venta de activos</li>
-          </ul>
-          <p class="text-slate-600 mt-4 leading-relaxed">
-            <strong>Nunca vendemos sus datos personales a terceros.</strong> Todos los socios están obligados a mantener confidencialidad y seguridad equivalente a esta política.
-          </p>
-        </section>
+      <h2>5. Derechos del titular</h2>
+      <p>
+        El titular puede solicitar confirmación del tratamiento, acceso, corrección, eliminación o información adicional sobre sus datos, conforme a la LGPD.
+      </p>
 
-        <!-- 5. Retención -->
-        <section>
-          <h2 class="text-2xl font-semibold text-[#0B2E4E] mb-4">5. Retención de Datos</h2>
-          <p class="text-slate-600 mb-4 leading-relaxed">
-            Mantenemos sus datos personales durante el tiempo necesario para:
-          </p>
-          <ul class="space-y-2 ml-6 text-slate-600">
-            <li>• Cumplir los propósitos descritos en esta política</li>
-            <li>• Cumplir obligaciones legales (p. ej., registros contables durante 5 años)</li>
-            <li>• Resolver disputas legales</li>
-            <li>• Ejecutar nuestras operaciones comerciales</li>
-          </ul>
-          <p class="text-slate-600 mt-4 leading-relaxed">
-            Después de estos períodos, los datos se anonimizan o se eliminan, excepto cuando es requerido por ley.
-          </p>
-        </section>
-
-        <!-- 6. Seguridad -->
-        <section>
-          <h2 class="text-2xl font-semibold text-[#0B2E4E] mb-4">6. Seguridad de los Datos</h2>
-          <p class="text-slate-600 mb-4 leading-relaxed">
-            Implementamos medidas técnicas y organizacionales para proteger sus datos:
-          </p>
-          <ul class="space-y-2 ml-6 text-slate-600">
-            <li>✓ Encriptación TLS/SSL en transmisión de datos</li>
-            <li>✓ Almacenamiento cifrado en reposo</li>
-            <li>✓ Control de acceso y autenticación multifactor</li>
-            <li>✓ Auditorías de seguridad regulares</li>
-            <li>✓ Planes de respuesta a incidentes</li>
-            <li>✓ Capacitación en seguridad para empleados</li>
-          </ul>
-          <p class="text-slate-600 mt-4 leading-relaxed text-sm italic">
-            Aunque implementamos estándares robustos de seguridad, ningún sistema es 100% seguro. Comunicaremos cualquier violación de datos según lo requerido por ley.
-          </p>
-        </section>
-
-        <!-- 7. Derechos del Titular -->
-        <section>
-          <h2 class="text-2xl font-semibold text-[#0B2E4E] mb-4">7. Sus Derechos Según la LGPD</h2>
-          <p class="text-slate-600 mb-4 leading-relaxed">
-            Tiene el derecho de:
-          </p>
-          <ul class="space-y-3">
-            <li class="flex gap-3">
-              <span class="text-[#2970A3] font-bold">1.</span>
-              <div>
-                <strong class="text-[#0B2E4E]">Acceder</strong>
-                <p class="text-slate-600">Confirmar si poseemos sus datos y conocer su contenido</p>
-              </div>
-            </li>
-            <li class="flex gap-3">
-              <span class="text-[#2970A3] font-bold">2.</span>
-              <div>
-                <strong class="text-[#0B2E4E]">Corregir</strong>
-                <p class="text-slate-600">Rectificar datos inexactos, incompletos o desactualizados</p>
-              </div>
-            </li>
-            <li class="flex gap-3">
-              <span class="text-[#2970A3] font-bold">3.</span>
-              <div>
-                <strong class="text-[#0B2E4E]">Eliminar</strong>
-                <p class="text-slate-600">Solicitar la eliminación de sus datos (derecho al olvido)</p>
-              </div>
-            </li>
-            <li class="flex gap-3">
-              <span class="text-[#2970A3] font-bold">4.</span>
-              <div>
-                <strong class="text-[#0B2E4E]">Portabilidad</strong>
-                <p class="text-slate-600">Recibir sus datos en formato estructurado y portátil</p>
-              </div>
-            </li>
-            <li class="flex gap-3">
-              <span class="text-[#2970A3] font-bold">5.</span>
-              <div>
-                <strong class="text-[#0B2E4E]">Revocar Consentimiento</strong>
-                <p class="text-slate-600">Retirar su consentimiento en cualquier momento</p>
-              </div>
-            </li>
-            <li class="flex gap-3">
-              <span class="text-[#2970A3] font-bold">6.</span>
-              <div>
-                <strong class="text-[#0B2E4E]">Oponerse</strong>
-                <p class="text-slate-600">Cuestionar el tratamiento de sus datos en ciertos contextos</p>
-              </div>
-            </li>
-          </ul>
-        </section>
-
-        <!-- 8. Ejercer Derechos -->
-        <section class="p-6 bg-amber-50 rounded-lg border border-amber-100">
-          <h2 class="text-2xl font-semibold text-[#0B2E4E] mb-4">8. Cómo Ejercer Sus Derechos</h2>
-          <p class="text-slate-700 mb-4 leading-relaxed">
-            Para ejercer cualquiera de los derechos anteriores, envíe un correo electrónico a:
-          </p>
-          <div class="bg-white p-4 rounded border border-amber-200">
-            <p class="text-center">
-              <strong class="text-lg text-[#0B2E4E]">privacidade@okamed.com.br</strong>
-            </p>
-            <p class="text-slate-600 text-sm mt-3 text-center">
-              Responderemos dentro de <strong>15 días hábiles</strong>, conforme lo requiere la LGPD.
-            </p>
-          </div>
-        </section>
-
-        <!-- 9. Encarregado -->
-        <section>
-          <h2 class="text-2xl font-semibold text-[#0B2E4E] mb-4">9. Delegado de Protección de Datos (DPO)</h2>
-          <p class="text-slate-600 mb-4 leading-relaxed">
-            Okamed ha designado un Delegado de Protección de Datos (Data Protection Officer) para supervisar el cumplimiento de la LGPD.
-          </p>
-          <p class="text-slate-600 leading-relaxed">
-            Puede contactarlo en <strong>dpo@okamed.com.br</strong> con cualquier pregunta, reclamación o sugerencia relacionada con el tratamiento de datos.
-          </p>
-        </section>
-
-        <!-- 10. Cookies -->
-        <section>
-          <h2 class="text-2xl font-semibold text-[#0B2E4E] mb-4">10. Cookies y Tecnologías Similares</h2>
-          <p class="text-slate-600 mb-4 leading-relaxed">
-            Utilizamos cookies para:
-          </p>
-          <ul class="space-y-2 ml-6 text-slate-600 mb-4">
-            <li>• <strong>Cookies Esenciales:</strong> Funcionamiento básico del sitio (sin consentimiento)</li>
-            <li>• <strong>Cookies de Análisis:</strong> Entender cómo usa nuestro sitio (con consentimiento)</li>
-            <li>• <strong>Cookies de Marketing:</strong> Personalizar contenido (con consentimiento)</li>
-          </ul>
-          <p class="text-slate-600 leading-relaxed">
-            Puede controlar cookies en la configuración de su navegador. Deshabilitar cookies puede afectar la funcionalidad del sitio.
-          </p>
-        </section>
-
-        <!-- 11. Enlaces Externos -->
-        <section>
-          <h2 class="text-2xl font-semibold text-[#0B2E4E] mb-4">11. Enlaces a Sitios de Terceros</h2>
-          <p class="text-slate-600 leading-relaxed">
-            Nuestro sitio puede contener enlaces a sitios de terceros. No somos responsables de las prácticas de privacidad de esos sitios. Le recomendamos que revise sus políticas de privacidad.
-          </p>
-        </section>
-
-        <!-- 12. Cambios -->
-        <section>
-          <h2 class="text-2xl font-semibold text-[#0B2E4E] mb-4">12. Cambios en Esta Política</h2>
-          <p class="text-slate-600 leading-relaxed">
-            Podemos actualizar esta Política de Privacidad ocasionalmente. Publicaremos actualizaciones en esta página y, si son significativas, le notificaremos por correo electrónico. Su uso continuado del sitio después de cambios constituye aceptación.
-          </p>
-        </section>
-
-        <!-- 13. ANPD -->
-        <section class="p-6 bg-slate-50 rounded-lg border border-slate-200">
-          <h2 class="text-2xl font-semibold text-[#0B2E4E] mb-4">13. Autoridad de Protección de Datos</h2>
-          <p class="text-slate-600 mb-3 leading-relaxed">
-            Si no está satisfecho con nuestra respuesta o considera que estamos violando la LGPD, puede presentar una reclamación ante la:
-          </p>
-          <div class="bg-white p-4 rounded border border-slate-200">
-            <p class="font-semibold text-[#0B2E4E]">Autoridad Nacional de Protección de Datos (ANPD)</p>
-            <p class="text-slate-600 text-sm mt-2">
-              Teléfono: (61) 3105-6000<br/>
-              Sitio: <a href="https://www.gov.br/cidadania/pt-br/acesso-a-informacao/lgpd" target="_blank" rel="noopener" class="text-[#2970A3] hover:underline">www.gov.br/cidadania/pt-br</a>
-            </p>
-          </div>
-        </section>
-
-      </div>
-
-      <!-- Footer -->
-      <div class="mt-16 pt-8 border-t border-slate-200 text-center text-slate-500">
-        <p class="text-sm">
-          © {new Date().getFullYear()} Okamed — Ingeniería Clínica. Todos los derechos reservados.
-        </p>
-      </div>
-
-    </div>
-  </section>
-
+      <h2>6. Contacto sobre privacidad</h2>
+      <p>
+        Las solicitudes relacionadas con datos personales pueden enviarse a
+        <a href="mailto:comercial@okamed.com.br">comercial@okamed.com.br</a>.
+      </p>
+    </section>
+  </main>
 </MainLayout>
+
+<style>
+.privacy-page {
+  background: #fff;
+  color: #475569;
+}
+
+.privacy-shell {
+  width: min(880px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.privacy-hero {
+  padding: 96px 0 64px;
+  background: linear-gradient(135deg, #0B2E4E, #1E537E);
+  color: #fff;
+}
+
+.privacy-hero h1 {
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  line-height: 1.05;
+  font-weight: 300;
+}
+
+.privacy-hero p {
+  margin-top: 16px;
+  color: rgba(255,255,255,0.82);
+}
+
+.privacy-content {
+  padding: 64px 0 96px;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.privacy-content h2 {
+  margin-top: 34px;
+  margin-bottom: 10px;
+  color: #0B2E4E;
+  font-size: 1.35rem;
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+.privacy-content a {
+  color: #2970A3;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+</style>
