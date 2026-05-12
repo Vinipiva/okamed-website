@@ -5,15 +5,6 @@ const t = useTranslations(Astro.currentLocale);
 
 <section id="argos" class="argos-section">
 
-  <!-- PNG absoluto — ultrapassa a seção -->
-  <div class="argos-img-abs" id="argosFloat" aria-hidden="true">
-    <img
-      src="/assets/35a287db9ce683cdc80b4fd5027d1acddc2bc56b.png"
-      alt=""
-      draggable="false"
-    />
-  </div>
-
   <!-- Conteúdo à esquerda -->
   <div class="max-w-7xl mx-auto px-6 relative z-10">
     <div class="argos-content">
@@ -48,6 +39,15 @@ const t = useTranslations(Astro.currentLocale);
       </div>
 
     </div>
+  </div>
+
+  <!-- PNG — absoluto no desktop, fluxo normal no mobile -->
+  <div class="argos-img-abs" id="argosFloat" aria-hidden="true">
+    <img
+      src="/assets/35a287db9ce683cdc80b4fd5027d1acddc2bc56b.png"
+      alt=""
+      draggable="false"
+    />
   </div>
 
 </section>
@@ -126,14 +126,6 @@ const t = useTranslations(Astro.currentLocale);
   user-select: none;
 }
 
-/* fade-out suave na borda direita */
-.argos-img-abs::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to right, transparent 68%, rgba(234,242,249,0.95) 100%);
-  pointer-events: none;
-}
 
 @keyframes floatBob {
   0%, 100% { transform: translateY(-50%) translateY(0px); }
@@ -183,24 +175,24 @@ const t = useTranslations(Astro.currentLocale);
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .argos-section {
-    padding-bottom: 480px; /* espaço pra imagem absoluta cair abaixo */
+    min-height: unset;
+    padding: 72px 0 48px;
   }
 
   .argos-img-abs {
-    top: auto;
-    bottom: -40px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 95vw;
+    position: relative;
+    top: unset;
+    left: unset;
+    transform: none;
+    width: 92vw;
+    max-width: 520px;
+    margin: 40px auto 0;
+    animation: floatBobMobile 7s ease-in-out infinite;
   }
 
-  .argos-img-abs::after {
-    background: linear-gradient(to bottom, transparent 60%, rgba(234,242,249,0.95) 100%);
-  }
-
-  @keyframes floatBob {
-    0%, 100% { transform: translateX(-50%) translateY(0px); }
-    50%       { transform: translateX(-50%) translateY(-12px); }
+  @keyframes floatBobMobile {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-10px); }
   }
 }
 </style>
