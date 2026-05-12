@@ -16,9 +16,9 @@ const logos = [client1, client2, client3, client4, client5, client6, client7, cl
   <div class="clients-strip">
     <div class="carousel-track">
       <div class="carousel-set">
-        {logos.map((logo) => (
+        {logos.map((logo, idx) => (
           <div class="client-card">
-            <img src={logo.src} alt="" />
+            <img src={logo.src} alt={`Cliente e parceiro Okamed ${idx + 1}`} />
           </div>
         ))}
       </div>

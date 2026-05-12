@@ -36,7 +36,10 @@ const t = useTranslations(Astro.currentLocale ?? (Astro.url.pathname.startsWith(
     </div>
 
     <div class="flex flex-col md:flex-row items-center justify-between gap-4 border-t border-slate-100 pt-8 text-xs text-slate-300">
-      <p>© {new Date().getFullYear()} Okamed. {t.footer.copyright}</p>
+      <div class="flex gap-6">
+        <p>© {new Date().getFullYear()} Okamed. {t.footer.copyright}</p>
+        <a href={Astro.currentLocale === 'es' ? '/es/politica-privacidade' : '/politica-privacidade'} class="hover:text-[#0B2E4E] transition-colors">{t.locale === 'es' ? 'Política de Privacidad' : 'Política de Privacidade'}</a>
+      </div>
       <p>{t.footer.builtWith}</p>
     </div>
 
