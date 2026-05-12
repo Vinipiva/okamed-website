@@ -43,27 +43,79 @@ const contactIcons = [
               {t.contact.cta}
             </a>
           </div>
+
+          <div class="mt-8 space-y-3">
+            {t.contact.contacts.map((c: { label: string; value: string; href: string | null }, i: number) => (
+              <div class="contact-row">
+                <div class="contact-icon">
+                  <Fragment set:html={contactIcons[i]} />
+                </div>
+                <div>
+                  <p class="text-slate-400 text-xs mb-1">{c.label}</p>
+                  {c.href ? (
+                    <a href={c.href} target="_blank" rel="noopener" class="text-[#0B2E4E]/85 text-sm font-medium hover:text-[var(--okamed-accent)] transition-colors">
+                      {c.value}
+                    </a>
+                  ) : (
+                    <p class="text-[#0B2E4E]/85 text-sm font-medium whitespace-pre-line">{c.value}</p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div class="space-y-3">
-          {t.contact.contacts.map((c: { label: string; value: string; href: string | null }, i: number) => (
-            <div class="contact-row">
-              <div class="contact-icon">
-                <Fragment set:html={contactIcons[i]} />
-              </div>
-              <div>
-                <p class="text-slate-400 text-xs mb-1">{c.label}</p>
-                {c.href ? (
-                  <a href={c.href} target="_blank" rel="noopener" class="text-[#0B2E4E]/85 text-sm font-medium hover:text-[var(--okamed-accent)] transition-colors">
-                    {c.value}
-                  </a>
-                ) : (
-                  <p class="text-[#0B2E4E]/85 text-sm font-medium whitespace-pre-line">{c.value}</p>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
+        <form
+          name="lead-contact"
+          method="POST"
+          action={t.locale === 'es' ? '/es/gracias' : '/obrigado'}
+          data-netlify="true"
+          netlify-honeypot="website"
+          class="contact-form"
+        >
+          <input type="hidden" name="form-name" value="lead-contact" />
+          <p class="hidden">
+            <label>
+              Website
+              <input name="website" />
+            </label>
+          </p>
+
+          <p class="form-title">{t.contact.form.title}</p>
+
+          <div class="grid sm:grid-cols-2 gap-4">
+            <label class="form-field">
+              <span>{t.contact.form.name}</span>
+              <input name="name" type="text" autocomplete="name" required />
+            </label>
+            <label class="form-field">
+              <span>{t.contact.form.email}</span>
+              <input name="email" type="email" autocomplete="email" required />
+            </label>
+            <label class="form-field">
+              <span>{t.contact.form.phone}</span>
+              <input name="phone" type="tel" autocomplete="tel" />
+            </label>
+            <label class="form-field">
+              <span>{t.contact.form.company}</span>
+              <input name="company" type="text" autocomplete="organization" />
+            </label>
+          </div>
+
+          <label class="form-field mt-4">
+            <span>{t.contact.form.message}</span>
+            <textarea name="message" rows="5" required></textarea>
+          </label>
+
+          <label class="consent-row">
+            <input name="privacy-consent" type="checkbox" required />
+            <span>{t.contact.form.consent}</span>
+          </label>
+
+          <button type="submit" class="btn-primary justify-center w-full">
+            {t.contact.form.submit}
+          </button>
+        </form>
 
       </div>
     </div>
@@ -114,7 +166,69 @@ const contactIcons = [
   color: var(--okamed-accent);
 }
 
+.contact-form {
+  padding: 28px;
+  border-radius: 18px;
+  border: 1px solid rgba(11,46,78,0.08);
+  background: rgba(244,246,248,0.72);
+}
+
+.form-title {
+  color: #0B2E4E;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #475569;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(11,46,78,0.12);
+  background: rgba(255,255,255,0.96);
+  color: #0B2E4E;
+  padding: 12px 14px;
+  font: inherit;
+  font-weight: 400;
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 128px;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  outline: 2px solid rgba(41,112,163,0.22);
+  border-color: rgba(41,112,163,0.45);
+}
+
+.consent-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 18px 0 20px;
+  color: #475569;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.consent-row input {
+  margin-top: 3px;
+  accent-color: #2970A3;
+}
+
 @media (max-width: 768px) {
   .contact-card { padding: 36px 28px; }
+  .contact-form { padding: 22px; }
 }
 </style>

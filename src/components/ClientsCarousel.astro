@@ -7,18 +7,25 @@ import client5 from "../assets/clients/client-5.png";
 import client6 from "../assets/clients/client-6.png";
 import client7 from "../assets/clients/client-7.png";
 import client8 from "../assets/clients/client-8.png";
+import { useTranslations } from "../i18n/utils";
 
 const logos = [client1, client2, client3, client4, client5, client6, client7, client8];
+const t = useTranslations(Astro.currentLocale ?? (Astro.url.pathname.startsWith('/es/') ? 'es' : 'pt'));
 ---
 
 <div class="clients-wrapper">
-  <div class="clients-label">Parceiros e clientes</div>
+  <div class="clients-label">{t.locale === 'es' ? 'Socios y clientes' : 'Parceiros e clientes'}</div>
   <div class="clients-strip">
     <div class="carousel-track">
       <div class="carousel-set">
         {logos.map((logo, idx) => (
           <div class="client-card">
-            <img src={logo.src} alt={`Cliente e parceiro Okamed ${idx + 1}`} />
+            <img
+              src={logo.src}
+              alt={t.locale === 'es'
+                ? `Logotipo de cliente o socio de Okamed ${idx + 1}`
+                : `Logotipo de cliente ou parceiro da Okamed ${idx + 1}`}
+            />
           </div>
         ))}
       </div>

@@ -45,7 +45,9 @@ const t = useTranslations(Astro.currentLocale ?? (Astro.url.pathname.startsWith(
   <div class="argos-img-abs" id="argosFloat">
     <img
       src="/assets/35a287db9ce683cdc80b4fd5027d1acddc2bc56b.png"
-      alt="Tela do aplicativo Argos mostrando interface de rastreamento de equipamentos médicos"
+      alt={t.locale === 'es'
+        ? 'Pantalla de la aplicación Argos para gestión de equipos médicos'
+        : 'Tela do aplicativo Argos para gestão de equipamentos médicos'}
       draggable="false"
     />
   </div>
