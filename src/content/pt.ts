@@ -10,7 +10,7 @@ export const pt = {
   },
 
   hero: {
-    tag: 'Soluções estratégicas em engenharia clínica',
+    tag: 'Soluções estratégicas para instituições de saúde',
     title: 'Engenharia\nClínica',
     description:
       'Reduzimos riscos, garantimos conformidade e aumentamos a eficiência operacional hospitalar com tecnologia própria.',
