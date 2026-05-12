@@ -11,7 +11,7 @@ const serviceIcons = [
 ];
 ---
 
-<section id="servicos" class="relative py-28 md:py-28 px-6 bg-transparent" style="padding-top: clamp(3rem, 8vw, 7rem); padding-bottom: clamp(3rem, 8vw, 7rem);">
+<section id="servicos" class="relative py-28 px-6 bg-transparent services-section">
   <div class="max-w-7xl mx-auto">
 
     <!-- Header -->
@@ -424,6 +424,10 @@ const serviceIcons = [
 
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
+  .services-section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
   .bento-grid {
     grid-template-columns: 1fr;
   }

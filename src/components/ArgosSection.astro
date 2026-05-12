@@ -176,23 +176,22 @@ const t = useTranslations(Astro.currentLocale);
 @media (max-width: 900px) {
   .argos-section {
     min-height: unset;
-    padding: 72px 0 48px;
+    padding: 48px 0 32px;
+  }
+
+  .argos-content {
+    max-width: 100%;
   }
 
   .argos-img-abs {
     position: relative;
     top: unset;
     left: unset;
-    transform: none;
-    width: 92vw;
-    max-width: 520px;
-    margin: 40px auto 0;
-    animation: floatBobMobile 7s ease-in-out infinite;
-  }
-
-  @keyframes floatBobMobile {
-    0%, 100% { transform: translateY(0px); }
-    50%       { transform: translateY(-10px); }
+    transform: none !important;
+    width: 88vw;
+    max-width: 460px;
+    margin: 28px auto 0;
+    animation: none;
   }
 }
 </style>
