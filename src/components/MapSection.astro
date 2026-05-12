@@ -1,0 +1,344 @@
+---
+import { useTranslations } from "../i18n/utils";
+const t = useTranslations(Astro.currentLocale);
+
+const cities = [
+  { name: "São Paulo",       uf: "SP", lat: -23.5505, lng: -46.6333, size: "lg" },
+  { name: "Rio de Janeiro",  uf: "RJ", lat: -22.9068, lng: -43.1729, size: "lg" },
+  { name: "Belo Horizonte",  uf: "MG", lat: -19.9191, lng: -43.9386, size: "md" },
+  { name: "Brasília",        uf: "DF", lat: -15.7801, lng: -47.9292, size: "md" },
+  { name: "Salvador",        uf: "BA", lat: -12.9714, lng: -38.5014, size: "md" },
+  { name: "Fortaleza",       uf: "CE", lat:  -3.7319, lng: -38.5267, size: "md" },
+  { name: "Curitiba",        uf: "PR", lat: -25.4290, lng: -49.2671, size: "md" },
+  { name: "Manaus",          uf: "AM", lat:  -3.1190, lng: -60.0217, size: "md" },
+  { name: "Recife",          uf: "PE", lat:  -8.0476, lng: -34.8770, size: "sm" },
+  { name: "Porto Alegre",    uf: "RS", lat: -30.0346, lng: -51.2177, size: "sm" },
+  { name: "Belém",           uf: "PA", lat:  -1.4558, lng: -48.5044, size: "sm" },
+  { name: "Goiânia",         uf: "GO", lat: -16.6869, lng: -49.2648, size: "sm" },
+  { name: "São José do Rio Preto", uf: "SP", lat: -20.8197, lng: -49.3794, size: "sm", highlight: true },
+  { name: "Campo Grande",    uf: "MS", lat: -20.4697, lng: -54.6201, size: "sm" },
+  { name: "Natal",           uf: "RN", lat:  -5.7945, lng: -35.2110, size: "sm" },
+  { name: "Maceió",          uf: "AL", lat:  -9.6660, lng: -35.7350, size: "sm" },
+  { name: "Teresina",        uf: "PI", lat:  -5.0920, lng: -42.8034, size: "sm" },
+  { name: "Florianópolis",   uf: "SC", lat: -27.5954, lng: -48.5480, size: "sm" },
+];
+
+---
+
+<section class="relative py-24 px-6 bg-transparent">
+
+  <div class="max-w-7xl mx-auto">
+    <div class="map-card">
+      <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(41,112,163,0.30)] to-transparent rounded-t-[28px]"></div>
+
+      <div class="grid lg:grid-cols-[1fr_1.6fr] gap-0 items-stretch">
+
+        <!-- Left -->
+        <div class="reveal text-content-pad">
+          <h2 class="text-[#0B2E4E] font-light text-4xl md:text-5xl leading-tight tracking-tight mb-5">
+            {t.map.titleLine1}<br/>
+            <span style="background:linear-gradient(120deg,#2970A3,#1E537E);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">{t.map.titleLine2}</span><br/>
+            {t.map.titleLine3}
+          </h2>
+          <p class="text-slate-500 text-base leading-relaxed max-w-sm">
+            {t.map.subtitle}
+          </p>
+
+          <div class="grid grid-cols-2 gap-4 mt-10">
+            {t.map.stats.map((s: { value: string; label: string }, i: number) => (
+              <div class={`stat-card reveal delay-${i + 1}`}>
+                <p class="stat-value">{s.value}</p>
+                <p class="stat-label">{s.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Right: D3 Map — ocupa toda a coluna -->
+        <div class="map-col reveal delay-2">
+          <div class="map-container">
+            <svg id="brazil-map" width="100%" height="100%" viewBox="0 0 560 580" preserveAspectRatio="xMidYMid meet" aria-label="Mapa do Brasil"></svg>
+            <div id="map-tooltip" class="map-tooltip" aria-live="polite"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- D3 map renderer -->
+<script>
+import * as d3 from "d3";
+
+async function renderMap() {
+  const svg = d3.select("#brazil-map");
+  const width  = 560;
+  const height = 580;
+
+  /* ── Fetch local GeoJSON ── */
+  const geo = await fetch("/data/brasil-estados.json").then(r => r.json());
+
+  /* ── Projection centrada no Brasil ── */
+  const projection = d3.geoMercator().fitSize([width, height], geo);
+  const path = d3.geoPath().projection(projection);
+
+  /* ── Gradient defs ── */
+  const defs = svg.append("defs");
+
+  const stateGrad = defs.append("linearGradient")
+    .attr("id", "stateGrad")
+    .attr("x1", "0%").attr("y1", "0%")
+    .attr("x2", "100%").attr("y2", "100%");
+  stateGrad.append("stop").attr("offset", "0%").attr("stop-color", "#D8EAF6");
+  stateGrad.append("stop").attr("offset", "100%").attr("stop-color", "#C2DCF0");
+
+  const hoverGrad = defs.append("linearGradient")
+    .attr("id", "hoverGrad")
+    .attr("x1", "0%").attr("y1", "0%")
+    .attr("x2", "100%").attr("y2", "100%");
+  hoverGrad.append("stop").attr("offset", "0%").attr("stop-color", "#A8CFEA");
+  hoverGrad.append("stop").attr("offset", "100%").attr("stop-color", "#7BBCE0");
+
+  // Drop shadow filter
+  const filter = defs.append("filter").attr("id", "stateShadow");
+  filter.append("feDropShadow")
+    .attr("dx", "0").attr("dy", "2")
+    .attr("stdDeviation", "3")
+    .attr("flood-color", "rgba(11,46,78,0.10)");
+
+  /* ── States ── */
+  const statesGroup = svg.append("g").attr("class", "states");
+
+  statesGroup.selectAll("path")
+    .data(geo.features)
+    .join("path")
+      .attr("d", path)
+      .attr("fill", "url(#stateGrad)")
+      .attr("stroke", "rgba(255,255,255,0.90)")
+      .attr("stroke-width", 1.2)
+      .attr("filter", "url(#stateShadow)")
+      .style("cursor", "pointer")
+      .style("transition", "fill 0.2s ease")
+      .on("mouseenter", function () {
+        d3.select(this).attr("fill", "url(#hoverGrad)");
+      })
+      .on("mouseleave", function () {
+        d3.select(this).attr("fill", "url(#stateGrad)");
+      });
+
+  /* ── Cities — clientes reais OKAMED/REDMED ── */
+  const cities = [
+    // Sede
+    { name: "São José do Rio Preto", lat: -20.8197, lng: -49.3794, size: 7, highlight: true },
+    // SP — grandes polos
+    { name: "São Paulo",             lat: -23.5505, lng: -46.6333, size: 6.5 },
+    { name: "Ribeirão Preto",        lat: -21.1699, lng: -47.8082, size: 5 },
+    { name: "Bauru",                 lat: -22.3147, lng: -49.0608, size: 5 },
+    { name: "Araçatuba",             lat: -21.2089, lng: -50.4312, size: 4.5 },
+    { name: "Marília",               lat: -22.2133, lng: -49.9456, size: 4.5 },
+    { name: "Presidente Prudente",   lat: -22.1258, lng: -51.3889, size: 4.5 },
+    { name: "São Carlos",            lat: -21.9947, lng: -47.8916, size: 4 },
+    { name: "Catanduva",             lat: -21.1370, lng: -48.9732, size: 4 },
+    { name: "Barretos",              lat: -20.5577, lng: -48.5664, size: 4 },
+    { name: "Votuporanga",           lat: -20.4230, lng: -49.9752, size: 4 },
+    { name: "Franca",                lat: -20.5390, lng: -47.4009, size: 4 },
+    { name: "Piracicaba",            lat: -22.7253, lng: -47.6491, size: 3.5 },
+    { name: "Botucatu",              lat: -22.8853, lng: -48.4428, size: 3.5 },
+    { name: "Jaú",                   lat: -22.2969, lng: -48.5597, size: 3.5 },
+    { name: "Araraquara",            lat: -21.7943, lng: -48.1755, size: 3.5 },
+    { name: "Mirassol",              lat: -20.8117, lng: -49.5075, size: 3.5 },
+    { name: "Bebedouro",             lat: -20.9490, lng: -48.4792, size: 3.5 },
+    { name: "Jales",                 lat: -20.2698, lng: -50.5464, size: 3.5 },
+    { name: "Birigui",               lat: -21.2906, lng: -50.3407, size: 3 },
+    { name: "Santa Fé do Sul",       lat: -20.2117, lng: -50.9316, size: 3 },
+    { name: "Fernandópolis",         lat: -20.2831, lng: -50.2489, size: 3 },
+    { name: "Penápolis",             lat: -21.4158, lng: -50.0792, size: 3 },
+    { name: "Olímpia",               lat: -20.7339, lng: -48.9137, size: 3 },
+    { name: "Assis",                 lat: -22.6641, lng: -50.4122, size: 3 },
+    { name: "Jaboticabal",           lat: -21.2547, lng: -48.3181, size: 3 },
+    { name: "São Bernardo do Campo", lat: -23.6914, lng: -46.5646, size: 3 },
+    { name: "Santo André",           lat: -23.6634, lng: -46.5403, size: 3 },
+    { name: "Novo Horizonte",        lat: -21.4686, lng: -49.2172, size: 3 },
+    { name: "São João da Boa Vista", lat: -21.9706, lng: -46.7942, size: 3 },
+    { name: "Mococa",                lat: -21.4697, lng: -47.0017, size: 3 },
+    { name: "Tabapuã",               lat: -20.9769, lng: -49.0269, size: 3 },
+    // MG
+    { name: "Belo Horizonte",        lat: -19.9167, lng: -43.9345, size: 4.5 },
+    { name: "Frutal",                lat: -20.0228, lng: -48.9367, size: 3.5 },
+    { name: "Uberaba",               lat: -19.7472, lng: -47.9297, size: 3.5 },
+    { name: "Poços de Caldas",       lat: -21.7878, lng: -46.5619, size: 3 },
+    // AM
+    { name: "Manaus",                lat:  -3.1190, lng: -60.0217, size: 4.5 },
+    { name: "Parintins",             lat:  -2.6281, lng: -56.7358, size: 3 },
+    // PA
+    { name: "Óbidos",                lat:  -1.9208, lng: -55.5152, size: 3 },
+    { name: "Ananindeua",            lat:  -1.3656, lng: -48.3727, size: 3 },
+    { name: "Canaã dos Carajás",     lat:  -6.5025, lng: -49.8742, size: 3 },
+    // GO
+    { name: "Jataí",                 lat: -17.8803, lng: -51.7136, size: 3.5 },
+    // RJ
+    { name: "Volta Redonda",         lat: -22.5231, lng: -44.1036, size: 3 },
+    { name: "Rio de Janeiro",        lat: -22.9068, lng: -43.1729, size: 4 },
+    // PR
+    { name: "Teixeira Soares",       lat: -25.3747, lng: -50.4539, size: 3 },
+    // MS
+    { name: "Ponta Porã",            lat: -22.5353, lng: -55.7272, size: 3 },
+    // ES
+    { name: "Serra",                 lat: -20.1286, lng: -40.3078, size: 3 },
+    // RO
+    { name: "Porto Velho",           lat:  -8.7612, lng: -63.9039, size: 3 },
+  ];
+
+  const tooltip = d3.select("#map-tooltip");
+
+  const citiesGroup = svg.append("g").attr("class", "cities");
+
+  cities.forEach(city => {
+    const [x, y] = projection([city.lng, city.lat]);
+    const isHighlight = city.highlight;
+    const color = isHighlight ? "#D93025" : "#2970A3";
+
+    // Pulse ring for highlighted city
+    if (isHighlight) {
+      citiesGroup.append("circle")
+        .attr("cx", x).attr("cy", y)
+        .attr("r", city.size + 6)
+        .attr("fill", "none")
+        .attr("stroke", color)
+        .attr("stroke-width", 1)
+        .attr("opacity", 0.3)
+        .attr("class", "pulse-ring");
+    }
+
+    // Outer glow ring
+    citiesGroup.append("circle")
+      .attr("cx", x).attr("cy", y)
+      .attr("r", city.size + 3)
+      .attr("fill", color)
+      .attr("opacity", 0.12);
+
+    // Dot
+    citiesGroup.append("circle")
+      .attr("cx", x).attr("cy", y)
+      .attr("r", city.size)
+      .attr("fill", color)
+      .attr("opacity", isHighlight ? 1 : 0.75)
+      .attr("stroke", "white")
+      .attr("stroke-width", 1.2)
+      .style("cursor", "pointer")
+      .style("transition", "r 0.15s ease, opacity 0.15s ease")
+      .on("mouseenter", function (event) {
+        d3.select(this).attr("r", city.size + 2).attr("opacity", 1);
+        tooltip
+          .style("display", "block")
+          .html(`<strong>${city.name}</strong>`);
+      })
+      .on("mousemove", function (event) {
+        const rect = document.getElementById("brazil-map")!.getBoundingClientRect();
+        tooltip
+          .style("left", (event.clientX - rect.left + 10) + "px")
+          .style("top",  (event.clientY - rect.top  - 30) + "px");
+      })
+      .on("mouseleave", function () {
+        d3.select(this).attr("r", city.size).attr("opacity", isHighlight ? 1 : 0.75);
+        tooltip.style("display", "none");
+      });
+  });
+}
+
+renderMap();
+</script>
+
+<style>
+.map-card {
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.75) 0%, rgba(240,248,255,0.85) 100%);
+  border: 1px solid rgba(255,255,255,0.92);
+  padding: 0;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 8px 40px rgba(11,46,78,0.08), inset 0 1px 0 rgba(255,255,255,0.9);
+  position: relative;
+  overflow: hidden;
+}
+
+.text-content-pad {
+  padding: 56px 40px 56px 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .text-content-pad { padding: 36px 28px; }
+}
+
+.map-col {
+  position: relative;
+  align-self: stretch;
+  min-height: 480px;
+}
+
+.map-container {
+  position: absolute;
+  inset: 0;
+}
+
+/* Tooltip */
+.map-tooltip {
+  display: none;
+  position: absolute;
+  pointer-events: none;
+  background: rgba(255,255,255,0.90);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.95);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #0B2E4E;
+  box-shadow: 0 4px 16px rgba(11,46,78,0.12);
+  white-space: nowrap;
+  z-index: 20;
+}
+
+/* Pulse animation for highlight city */
+:global(.pulse-ring) {
+  animation: pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { r: 10; opacity: 0.3; }
+  50%       { r: 18; opacity: 0.06; }
+}
+
+.stat-card {
+  background: rgba(255,255,255,0.70);
+  border: 1px solid rgba(255,255,255,0.90);
+  border-radius: 16px;
+  padding: 18px 20px;
+  box-shadow: 0 2px 12px rgba(11,46,78,0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(11,46,78,0.10);
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  color: #0B2E4E;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+</style>

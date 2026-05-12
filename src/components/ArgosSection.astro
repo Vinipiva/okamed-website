@@ -1,0 +1,206 @@
+---
+import { useTranslations } from "../i18n/utils";
+const t = useTranslations(Astro.currentLocale);
+---
+
+<section id="argos" class="argos-section">
+
+  <!-- PNG absoluto — ultrapassa a seção -->
+  <div class="argos-img-abs" id="argosFloat" aria-hidden="true">
+    <img
+      src="/src/assets/35a287db9ce683cdc80b4fd5027d1acddc2bc56b.png"
+      alt=""
+      draggable="false"
+    />
+  </div>
+
+  <!-- Conteúdo à esquerda -->
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
+    <div class="argos-content">
+
+      <div class="reveal">
+        <p class="section-label mb-4">{t.argos.label}</p>
+        <h2 class="section-title mb-2">App <span class="argos-gradient">Argos</span></h2>
+        <p class="text-slate-500 mt-4 text-base leading-relaxed max-w-sm">
+          {t.argos.description}
+        </p>
+      </div>
+
+      <div class="mt-10 space-y-3">
+        {t.argos.features.map((f: { title: string; desc: string }, i: number) => (
+          <div class={`feat-row reveal delay-${i + 1}`}>
+            <div class="feat-num">{String(i + 1).padStart(2, "0")}</div>
+            <div>
+              <p class="text-[#0B2E4E] text-sm font-medium">{f.title}</p>
+              <p class="text-slate-500 text-xs mt-0.5 leading-relaxed">{f.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-10 reveal delay-5">
+        <a href="#contato" class="btn-primary">
+          {t.argos.cta}
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<script is:inline>
+(function () {
+  const wrap = document.getElementById("argosFloat");
+  if (!wrap) return;
+
+  let targetRx = 0, targetRy = 0, targetTx = 0, targetTy = 0;
+  let curRx = 0,    curRy = 0,    curTx = 0,    curTy = 0;
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  window.addEventListener("mousemove", (e) => {
+    const cx = window.innerWidth  / 2;
+    const cy = window.innerHeight / 2;
+    const nx = (e.clientX - cx) / cx;
+    const ny = (e.clientY - cy) / cy;
+    targetRy =  nx * 6;
+    targetRx = -ny * 3.5;
+    targetTx =  nx * 18;
+    targetTy =  ny * 10;
+  });
+
+  (function tick() {
+    curRx = lerp(curRx, targetRx, 0.055);
+    curRy = lerp(curRy, targetRy, 0.055);
+    curTx = lerp(curTx, targetTx, 0.055);
+    curTy = lerp(curTy, targetTy, 0.055);
+    wrap.style.transform =
+      `perspective(1400px) rotateX(${curRx}deg) rotateY(${curRy}deg) translate3d(${curTx}px,${curTy}px,0)`;
+    requestAnimationFrame(tick);
+  })();
+
+})();
+</script>
+
+<style>
+/* ── SECTION ── */
+.argos-section {
+  position: relative;
+  min-height: 820px;
+  padding: 140px 0 140px;
+  background: transparent;
+}
+
+/* ── CONTENT (esquerda, ~45% da largura) ── */
+.argos-content {
+  max-width: 460px;
+}
+
+/* ── PNG ABSOLUTO ── */
+.argos-img-abs {
+  position: absolute;
+  top: 50%;
+  /* começa a ~42% da largura e sangra pra direita */
+  left: 42%;
+  transform: translateY(-50%);
+  width: 72vw;
+  max-width: 1100px;
+  z-index: 5;
+  will-change: transform;
+  transform-style: preserve-3d;
+  animation: floatBob 7s ease-in-out infinite;
+  filter:
+    drop-shadow(0 60px 80px rgba(11,46,78,0.22))
+    drop-shadow(0 16px 28px rgba(11,46,78,0.14));
+  pointer-events: none;
+}
+
+.argos-img-abs img {
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+}
+
+/* fade-out suave na borda direita */
+.argos-img-abs::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, transparent 68%, rgba(234,242,249,0.95) 100%);
+  pointer-events: none;
+}
+
+@keyframes floatBob {
+  0%, 100% { transform: translateY(-50%) translateY(0px); }
+  50%       { transform: translateY(-50%) translateY(-16px); }
+}
+
+/* ── GRADIENT TEXT ── */
+.argos-gradient {
+  background: linear-gradient(120deg, #2970A3, #1E537E);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── FEATURE ROWS ── */
+.feat-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  padding: 13px 15px;
+  border-radius: 13px;
+  border: 1px solid rgba(11,46,78,0.07);
+  background: rgba(255,255,255,0.58);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: background 0.25s, border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+}
+
+.feat-row:hover {
+  background: rgba(255,255,255,0.92);
+  border-color: rgba(41,112,163,0.18);
+  box-shadow: 0 6px 24px rgba(11,46,78,0.09);
+  transform: translateX(5px);
+}
+
+.feat-num {
+  flex-shrink: 0;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--okamed-accent);
+  opacity: 0.50;
+  margin-top: 3px;
+  width: 20px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .argos-section {
+    padding-bottom: 480px; /* espaço pra imagem absoluta cair abaixo */
+  }
+
+  .argos-img-abs {
+    top: auto;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95vw;
+  }
+
+  .argos-img-abs::after {
+    background: linear-gradient(to bottom, transparent 60%, rgba(234,242,249,0.95) 100%);
+  }
+
+  @keyframes floatBob {
+    0%, 100% { transform: translateX(-50%) translateY(0px); }
+    50%       { transform: translateX(-50%) translateY(-12px); }
+  }
+}
+</style>

@@ -1,0 +1,163 @@
+---
+
+---
+
+<div class="hero-video opacity-80" aria-hidden="true">
+  <video id="videoA" class="video-layer" muted playsinline preload="auto">
+    <source src="/herovideo.mp4" type="video/mp4" />
+  </video>
+
+  <video id="videoB" class="video-layer" muted playsinline preload="auto">
+    <source src="/herovideo.mp4" type="video/mp4" />
+  </video>
+
+  <div class="hero-overlay"></div>
+</div>
+
+<style>
+.hero-video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  z-index:0;
+}
+
+.video-layer{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+
+  opacity:0;
+  transition:opacity 0.55s linear;
+
+  will-change:opacity, filter;
+  transform: translateZ(0);
+}
+
+.video-layer.active{
+  opacity:1;
+}
+
+/* “véu” durante a troca pra mascarar costura */
+.hero-video.is-fading .video-layer{
+  filter: blur(1px) brightness(1.02) contrast(1.02) saturate(1.02);
+}
+
+/* ramp no final do vídeo ativo (bem sutil, mas faz MUITA diferença) */
+.hero-video.is-ending .video-layer.active{
+  filter: blur(2.25px) brightness(0.96) saturate(0.98);
+}
+
+/* overlay único (costura o vídeo no hero) */
+.hero-overlay{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+
+  /* Camada 1: “luz” suave no centro */
+  background:
+    radial-gradient(
+      ellipse 85% 70% at 60% 45%,
+      rgba(255,255,255,0.08) 0%,
+      rgba(255,255,255,0.04) 35%,
+      transparent 60%
+    ),
+    /* Camada 2: vinheta sutil */
+    radial-gradient(
+      ellipse 120% 100% at 50% 50%,
+      transparent 45%,
+      rgba(0,0,0,0.18) 100%
+    ),
+    /* Camada 3: gradiente vertical pra “assentar” texto */
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.10) 0%,
+      transparent 28%,
+      transparent 70%,
+      rgba(0,0,0,0.22) 100%
+    );
+
+  mix-blend-mode: overlay;
+  opacity: 0.60;
+  transition: opacity 0.4s ease;
+}
+
+/* aumenta um tiquinho o overlay durante a troca (parece intencional) */
+.hero-video.is-fading .hero-overlay{
+  opacity: 0.72;
+}
+</style>
+
+<script is:inline>
+const FADE_TIME = 0.55           // mais curto (menos “lavado”)
+const END_RAMP = 0.75            // quanto tempo antes do fim aplicar blur/escurecer
+const TRIGGER_BEFORE_END = 0.55  // quando iniciar a troca (perto do final)
+
+const root = document.querySelector(".hero-video")
+const vA = document.getElementById("videoA")
+const vB = document.getElementById("videoB")
+
+let active = vA
+let next = vB
+let transitioning = false
+
+active.classList.add("active")
+
+function prepareNext(){
+  next.currentTime = 0
+  next.play().catch(()=>{})
+}
+
+function swapVideos(){
+  active.classList.remove("active")
+  next.classList.add("active")
+
+  setTimeout(() => {
+    active.pause()
+
+    const temp = active
+    active = next
+    next = temp
+
+    transitioning = false
+    root.classList.remove("is-fading")
+    root.classList.remove("is-ending")
+
+    active.addEventListener("timeupdate", monitor)
+  }, FADE_TIME * 1000)
+}
+
+function crossfade(){
+  if(transitioning) return
+  transitioning = true
+
+  root.classList.add("is-fading")
+  prepareNext()
+  swapVideos()
+}
+
+function monitor(){
+  if(!active.duration || Number.isNaN(active.duration)) return
+
+  const remaining = active.duration - active.currentTime
+
+  // ramp suave antes do fim (esconde a “cicatriz”)
+  if(remaining <= END_RAMP){
+    root.classList.add("is-ending")
+  } else {
+    root.classList.remove("is-ending")
+  }
+
+  if(remaining <= TRIGGER_BEFORE_END){
+    active.removeEventListener("timeupdate", monitor)
+    crossfade()
+  }
+}
+
+active.play().catch(()=>{})
+active.addEventListener("timeupdate", monitor)
+</script>

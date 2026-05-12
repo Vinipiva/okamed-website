@@ -1,35 +1,28 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
-import Hero from '../components/Hero.astro';
-import ServicesGrid from '../components/ServicesGrid.astro';
-import ArgosSection from '../components/ArgosSection.astro';
-import MapSection from '../components/MapSection.astro';
-import ContactSection from '../components/ContactSection.astro';
-import Footer from '../components/Footer.astro';
+import MainLayout from '../../layouts/MainLayout.astro';
+import Hero from '../../components/Hero.astro';
+import ServicesGrid from '../../components/ServicesGrid.astro';
+import ArgosSection from '../../components/ArgosSection.astro';
+import MapSection from '../../components/MapSection.astro';
+import ContactSection from '../../components/ContactSection.astro';
+import Footer from '../../components/Footer.astro';
 ---
 
-<MainLayout title="Okamed — Engenharia Clínica">
-  <Hero subtitle="Reduzimos riscos operacionais, garantimos conformidade regulatória e aumentamos a eficiência da sua instituição com tecnologia própria.">
-    <img src="/src/assets/astro.svg" alt="Ilustração" class="w-full h-full object-cover" />
+<MainLayout title="Okamed — Ingeniería Clínica">
+  <Hero subtitle="Reducimos riesgos operacionales, garantizamos conformidad regulatoria y aumentamos la eficiencia de su institución con tecnología propia.">
+    <img src="/src/assets/astro.svg" alt="Ilustración" class="w-full h-full object-cover" />
   </Hero>
 
-  <!-- Fundo unificado das três seções centrais -->
   <div class="unified-bg">
 
-    <!-- Esferas globais distribuídas pela altura total -->
     <div class="ub-canvas" aria-hidden="true">
-      <!-- Zona ServicesGrid — topo -->
       <div class="ub-sphere ubs-tr"></div>
       <div class="ub-sphere ubs-tl"></div>
-      <!-- Transição Services→Argos -->
       <div class="ub-sphere ubs-mr"></div>
-      <!-- Zona Argos — centro -->
       <div class="ub-sphere ubs-cl"></div>
       <div class="ub-sphere ubs-cc"></div>
-      <!-- Zona Mapa — base -->
       <div class="ub-sphere ubs-br"></div>
       <div class="ub-sphere ubs-bl"></div>
-      <!-- Grid sutil -->
       <div class="ub-grid"></div>
     </div>
 
@@ -41,7 +34,6 @@ import Footer from '../components/Footer.astro';
   <ContactSection />
 
 <script is:inline>
-/* Parallax suave nas esferas globais ao scrollar */
 (function () {
   const wrapper = document.querySelector('.unified-bg');
   if (!wrapper) return;
@@ -86,14 +78,12 @@ import Footer from '../components/Footer.astro';
 </MainLayout>
 
 <style>
-/* ── Wrapper unificado ── */
 .unified-bg {
   position: relative;
   background: #EAF2F9;
   overflow: hidden;
 }
 
-/* Canvas de fundo — posição absoluta sobre toda a altura */
 .ub-canvas {
   position: absolute;
   inset: 0;
@@ -107,7 +97,6 @@ import Footer from '../components/Footer.astro';
   will-change: transform;
 }
 
-/* ─ ServicesGrid: topo-direita — esfera grande, muito difusa ─ */
 .ubs-tr {
   width: 1100px; height: 1100px;
   top: -220px; right: -250px;
@@ -116,7 +105,6 @@ import Footer from '../components/Footer.astro';
   filter: blur(55px);
 }
 
-/* ─ ServicesGrid: topo-esquerda — esfera média ─ */
 .ubs-tl {
   width: 520px; height: 520px;
   top: 60px; left: -90px;
@@ -125,7 +113,6 @@ import Footer from '../components/Footer.astro';
   filter: blur(75px);
 }
 
-/* ─ Transição: média-direita ─ */
 .ubs-mr {
   width: 700px; height: 700px;
   top: 28%; right: -160px;
@@ -134,7 +121,6 @@ import Footer from '../components/Footer.astro';
   filter: blur(45px);
 }
 
-/* ─ Argos: centro-esquerda — esfera difusa grande ─ */
 .ubs-cl {
   width: 800px; height: 800px;
   top: 42%; left: -80px;
@@ -143,7 +129,6 @@ import Footer from '../components/Footer.astro';
   filter: blur(90px);
 }
 
-/* ─ Argos: centro — véu suave central ─ */
 .ubs-cc {
   width: 1000px; height: 600px;
   top: 38%; left: calc(50% - 500px);
@@ -152,7 +137,6 @@ import Footer from '../components/Footer.astro';
   filter: blur(110px);
 }
 
-/* ─ Mapa: base-direita ─ */
 .ubs-br {
   width: 650px; height: 650px;
   bottom: 0; right: -100px;
@@ -161,7 +145,6 @@ import Footer from '../components/Footer.astro';
   filter: blur(65px);
 }
 
-/* ─ Mapa: base-esquerda ─ */
 .ubs-bl {
   width: 550px; height: 550px;
   bottom: -60px; left: -70px;
@@ -170,7 +153,6 @@ import Footer from '../components/Footer.astro';
   filter: blur(70px);
 }
 
-/* ─ Grid sutil global ─ */
 .ub-grid {
   position: absolute; inset: 0;
   background-image:
