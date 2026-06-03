@@ -53,13 +53,13 @@ const contactIcons = [
                 <Fragment set:html={contactIcons[i]} />
               </div>
               <div>
-                <p class="text-slate-400 text-xs mb-1">{c.label}</p>
+                <p class="text-slate-500 text-sm mb-1">{c.label}</p>
                 {c.href ? (
-                  <a href={c.href} target="_blank" rel="noopener" class="text-[#0B2E4E]/85 text-sm font-medium hover:text-[var(--okamed-accent)] transition-colors">
+                  <a href={c.href} target="_blank" rel="noopener" class="text-[#0B2E4E] text-sm font-medium hover:text-[var(--okamed-accent)] transition-colors">
                     {c.value}
                   </a>
                 ) : (
-                  <p class="text-[#0B2E4E]/85 text-sm font-medium whitespace-pre-line">{c.value}</p>
+                  <p class="text-[#0B2E4E] text-sm font-medium whitespace-pre-line">{c.value}</p>
                 )}
               </div>
             </div>

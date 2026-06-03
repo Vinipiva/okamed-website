@@ -17,18 +17,24 @@ const t = useTranslations(Astro.currentLocale ?? (Astro.url.pathname.startsWith(
 
       <img src="/assets/logo_okamed.svg" alt="Okamed" class="h-7" width="120" height="28" fetchpriority="high" />
 
-      <nav class="hidden md:flex items-center gap-8 text-sm">
+      <nav class="hidden md:flex items-center gap-8 text-sm" aria-label="Navegação principal">
         <a href="#servicos" class="nav-link">{t.nav.services}</a>
         <a href="#argos" class="nav-link">{t.nav.argos}</a>
         <a href="#contato" class="nav-link">{t.nav.contact}</a>
         <LangSwitcher />
-        <a href="#contato" class="btn-primary text-xs py-2.5 px-5">{t.nav.cta}</a>
+        <a href="#contato" class="btn-primary text-sm py-2.5 px-5">{t.nav.cta}</a>
       </nav>
 
       <div class="md:hidden flex items-center gap-4">
         <LangSwitcher />
-        <button class="text-[#0B2E4E]/60 hover:text-[#0B2E4E] transition" aria-label="Menu">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+        <button
+          id="mobile-menu-btn"
+          class="text-[#0B2E4E]/70 hover:text-[#0B2E4E] transition p-1"
+          aria-label="Abrir menu de navegação"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
             <path d="M3 6h16M3 11h16M3 16h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
           </svg>
         </button>

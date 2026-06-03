@@ -23,7 +23,7 @@ const t = useTranslations(Astro.currentLocale ?? (Astro.url.pathname.startsWith(
             <div class="feat-num">{String(i + 1).padStart(2, "0")}</div>
             <div>
               <p class="text-[#0B2E4E] text-sm font-medium">{f.title}</p>
-              <p class="text-slate-500 text-xs mt-0.5 leading-relaxed">{f.desc}</p>
+              <p class="text-slate-500 text-sm mt-0.5 leading-relaxed">{f.desc}</p>
             </div>
           </div>
         ))}
@@ -177,13 +177,13 @@ const t = useTranslations(Astro.currentLocale ?? (Astro.url.pathname.startsWith(
 
 .feat-num {
   flex-shrink: 0;
-  font-size: 0.62rem;
+  font-size: 0.875rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
   color: var(--okamed-accent);
-  opacity: 0.50;
-  margin-top: 3px;
-  width: 20px;
+  opacity: 0.65;
+  margin-top: 1px;
+  width: 24px;
 }
 
 /* ── RESPONSIVE ── */
