@@ -27,7 +27,8 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" /></noscript>
   </head>
 
   <body class="min-h-screen bg-[#F4F6F8]">
@@ -56,17 +57,24 @@ const {
   );
   document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 
-  /* Ambient parallax */
+  /* Ambient parallax — throttled via RAF */
   const ambOrbs = [
     { el: document.getElementById("ambOrb1"), speed:  0.13 },
     { el: document.getElementById("ambOrb2"), speed: -0.09 },
     { el: document.getElementById("ambOrb3"), speed:  0.07 },
     { el: document.getElementById("ambOrb4"), speed:  0.15 },
   ];
+  let scrollTicking = false;
   window.addEventListener("scroll", () => {
-    const y = window.scrollY;
-    ambOrbs.forEach(({ el, speed }) => {
-      if (el) el.style.transform = `translateY(${y * speed}px)`;
-    });
+    if (!scrollTicking) {
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        ambOrbs.forEach(({ el, speed }) => {
+          if (el) el.style.transform = `translateY(${y * speed}px)`;
+        });
+        scrollTicking = false;
+      });
+      scrollTicking = true;
+    }
   }, { passive: true });
 </script>

@@ -3,11 +3,11 @@
 ---
 
 <div class="hero-video opacity-80" aria-hidden="true">
-  <video id="videoA" class="video-layer" muted playsinline preload="auto">
+  <video id="videoA" class="video-layer" muted playsinline preload="metadata">
     <source src="/herovideo.mp4" type="video/mp4" />
   </video>
 
-  <video id="videoB" class="video-layer" muted playsinline preload="auto">
+  <video id="videoB" class="video-layer" muted playsinline preload="none">
     <source src="/herovideo.mp4" type="video/mp4" />
   </video>
 
@@ -108,6 +108,7 @@ let transitioning = false
 active.classList.add("active")
 
 function prepareNext(){
+  next.preload = "auto"
   next.currentTime = 0
   next.play().catch(()=>{})
 }

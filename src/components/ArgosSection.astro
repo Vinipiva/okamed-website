@@ -48,6 +48,8 @@ const t = useTranslations(Astro.currentLocale ?? (Astro.url.pathname.startsWith(
       alt={t.locale === 'es'
         ? 'Pantalla de la aplicación Argos para gestión de equipos médicos'
         : 'Tela do aplicativo Argos para gestão de equipamentos médicos'}
+      loading="lazy"
+      decoding="async"
       draggable="false"
     />
   </div>
@@ -61,10 +63,33 @@ const t = useTranslations(Astro.currentLocale ?? (Astro.url.pathname.startsWith(
 
   let targetRx = 0, targetRy = 0, targetTx = 0, targetTy = 0;
   let curRx = 0,    curRy = 0,    curTx = 0,    curTy = 0;
+  let rafId = null;
+  let visible = false;
 
   function lerp(a, b, t) { return a + (b - a) * t; }
 
+  function tick() {
+    curRx = lerp(curRx, targetRx, 0.055);
+    curRy = lerp(curRy, targetRy, 0.055);
+    curTx = lerp(curTx, targetTx, 0.055);
+    curTy = lerp(curTy, targetTy, 0.055);
+    wrap.style.transform =
+      `perspective(1400px) rotateX(${curRx}deg) rotateY(${curRy}deg) translate3d(${curTx}px,${curTy}px,0)`;
+    if (visible) rafId = requestAnimationFrame(tick);
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      visible = entries[0].isIntersecting;
+      if (visible && !rafId) rafId = requestAnimationFrame(tick);
+      if (!visible && rafId) { cancelAnimationFrame(rafId); rafId = null; }
+    },
+    { rootMargin: "100px" }
+  );
+  observer.observe(wrap);
+
   window.addEventListener("mousemove", (e) => {
+    if (!visible) return;
     const cx = window.innerWidth  / 2;
     const cy = window.innerHeight / 2;
     const nx = (e.clientX - cx) / cx;
@@ -73,17 +98,7 @@ const t = useTranslations(Astro.currentLocale ?? (Astro.url.pathname.startsWith(
     targetRx = -ny * 3.5;
     targetTx =  nx * 18;
     targetTy =  ny * 10;
-  });
-
-  (function tick() {
-    curRx = lerp(curRx, targetRx, 0.055);
-    curRy = lerp(curRy, targetRy, 0.055);
-    curTx = lerp(curTx, targetTx, 0.055);
-    curTy = lerp(curTy, targetTy, 0.055);
-    wrap.style.transform =
-      `perspective(1400px) rotateX(${curRx}deg) rotateY(${curRy}deg) translate3d(${curTx}px,${curTy}px,0)`;
-    requestAnimationFrame(tick);
-  })();
+  }, { passive: true });
 
 })();
 </script>

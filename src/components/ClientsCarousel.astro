@@ -1,44 +1,66 @@
 ---
-import client1 from "../assets/clients/client-1.png";
-import client2 from "../assets/clients/client-2.png";
-import client3 from "../assets/clients/client-3.png";
-import client4 from "../assets/clients/client-4.png";
-import client5 from "../assets/clients/client-5.png";
-import client6 from "../assets/clients/client-6.png";
-import client7 from "../assets/clients/client-7.png";
-import client8 from "../assets/clients/client-8.png";
-import { useTranslations } from "../i18n/utils";
+const totalNumbered = 33;
+const clientImages: { src: string; alt: string }[] = Array.from(
+  { length: totalNumbered },
+  (_, i) => ({
+    src: `/clients/client_okamed-${i + 1}.png`,
+    alt: ``,
+  })
+);
+clientImages.push({ src: `/clients/client_okamed.png`, alt: `` });
 
-const logos = [client1, client2, client3, client4, client5, client6, client7, client8];
-const t = useTranslations(Astro.currentLocale ?? (Astro.url.pathname.startsWith('/es/') ? 'es' : 'pt'));
+const locale = Astro.currentLocale ?? (Astro.url.pathname.startsWith('/es/') ? 'es' : 'pt');
+const isEs = locale === 'es';
+const label = isEs ? 'Socios y clientes' : 'Parceiros e clientes';
 ---
 
 <div class="clients-wrapper">
-  <div class="clients-label">{t.locale === 'es' ? 'Socios y clientes' : 'Parceiros e clientes'}</div>
+  <div class="clients-label">{label}</div>
   <div class="clients-strip">
     <div class="carousel-track">
-      <div class="carousel-set">
-        {logos.map((logo, idx) => (
+      <div class="carousel-set" id="carousel-primary">
+        {clientImages.map((img, idx) => (
           <div class="client-card">
             <img
-              src={logo.src}
-              alt={t.locale === 'es'
-                ? `Logotipo de cliente o socio de Okamed ${idx + 1}`
-                : `Logotipo de cliente ou parceiro da Okamed ${idx + 1}`}
+              src={img.src}
+              width="192"
+              height="88"
+              loading="lazy"
+              decoding="async"
+              alt={isEs
+                ? `Logo de cliente o socio de Okamed número ${idx + 1}`
+                : `Logo de cliente ou parceiro da Okamed número ${idx + 1}`}
             />
           </div>
         ))}
       </div>
-      <div class="carousel-set" aria-hidden="true">
-        {logos.map((logo) => (
-          <div class="client-card">
-            <img src={logo.src} alt="" />
-          </div>
-        ))}
-      </div>
+      <div class="carousel-set" id="carousel-clone" aria-hidden="true"></div>
     </div>
   </div>
 </div>
+
+<script>
+  const primary = document.getElementById("carousel-primary");
+  const clone = document.getElementById("carousel-clone");
+
+  if (primary && clone) {
+    const cards = Array.from(primary.querySelectorAll<HTMLElement>(".client-card"));
+
+    for (let i = cards.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [cards[i], cards[j]] = [cards[j], cards[i]];
+    }
+
+    primary.replaceChildren(...cards);
+
+    cards.forEach((card) => {
+      const cloned = card.cloneNode(true) as HTMLElement;
+      const img = cloned.querySelector("img");
+      if (img) img.alt = "";
+      clone.appendChild(cloned);
+    });
+  }
+</script>
 
 <style>
 .clients-wrapper {
@@ -69,7 +91,7 @@ const t = useTranslations(Astro.currentLocale ?? (Astro.url.pathname.startsWith(
   display: flex;
   gap: 40px;
   width: max-content;
-  animation: scroll 28s linear infinite;
+  animation: scroll 120s linear infinite;
   will-change: transform;
 }
 
