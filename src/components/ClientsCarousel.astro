@@ -23,8 +23,6 @@ const label = isEs ? 'Socios y clientes' : 'Parceiros e clientes';
           <div class="client-card">
             <img
               src={img.src}
-              width="192"
-              height="88"
               loading="lazy"
               decoding="async"
               alt={isEs
@@ -105,8 +103,8 @@ const label = isEs ? 'Socios y clientes' : 'Parceiros e clientes';
 
 .client-card {
   flex: 0 0 auto;
-  width: 240px;
-  height: 120px;
+  width: 200px;
+  aspect-ratio: 512 / 400;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -114,7 +112,7 @@ const label = isEs ? 'Socios y clientes' : 'Parceiros e clientes';
   background: rgba(255,255,255,0.90);
   border: 1px solid rgba(255,255,255,0.95);
   box-shadow: 0 2px 12px rgba(11,46,78,0.07);
-  padding: 16px 24px;
+  padding: 18px 20px;
   transition: background 0.25s, box-shadow 0.25s, transform 0.25s;
 }
 
