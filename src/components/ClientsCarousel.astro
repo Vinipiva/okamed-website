@@ -46,15 +46,13 @@ const label = isEs ? 'Socios y clientes' : 'Parceiros e clientes';
   <div class="clients-strip">
     <div class="carousel-track">
       <div class="carousel-set" id="carousel-primary">
-        {clientImages.map((img, idx) => (
+        {clientImages.map((img) => (
           <div class="client-card">
             <img
               src={img.src}
               loading="lazy"
               decoding="async"
-              alt={isEs
-                ? `Logo de cliente o socio de Okamed número ${idx + 1}`
-                : `Logo de cliente ou parceiro da Okamed número ${idx + 1}`}
+              alt={img.alt}
             />
           </div>
         ))}
