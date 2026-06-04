@@ -1,13 +1,40 @@
 ---
-const totalNumbered = 33;
-const clientImages: { src: string; alt: string }[] = Array.from(
-  { length: totalNumbered },
-  (_, i) => ({
-    src: `/clients/client_okamed-${i + 1}.png`,
-    alt: ``,
-  })
-);
-clientImages.push({ src: `/clients/client_okamed.png`, alt: `` });
+const clientImages: { src: string; alt: string }[] = [
+  { src: `/clients/client_okamed-1.png`,  alt: `Hospital Emílio Carlos` },
+  { src: `/clients/client_okamed-2.png`,  alt: `AME – Ambulatório Médico de Especialidades Catanduva` },
+  { src: `/clients/client_okamed-3.png`,  alt: `Hospital de Clínicas São Bernardo do Campo` },
+  { src: `/clients/client_okamed-4.png`,  alt: `Hospital da Mulher` },
+  { src: `/clients/client_okamed-5.png`,  alt: `Hospital de Urgência São Bernardo do Campo` },
+  { src: `/clients/client_okamed-6.png`,  alt: `O.S.S. Pirangi – Organização Social de Saúde Pirangi` },
+  { src: `/clients/client_okamed-7.png`,  alt: `Hospital Anchieta` },
+  { src: `/clients/client_okamed-8.png`,  alt: `IMC – Instituto de Moléstias Cardiovasculares` },
+  { src: `/clients/client_okamed-9.png`,  alt: `Austa Hospital` },
+  { src: `/clients/client_okamed-10.png`, alt: `Hospital Electro Bonini – UNAERP Ribeirão Preto` },
+  { src: `/clients/client_okamed-11.png`, alt: `Hospital Beneficente Unimar` },
+  { src: `/clients/client_okamed-12.png`, alt: `Santa Casa São Joaquim da Barra` },
+  { src: `/clients/client_okamed-13.png`, alt: `Santa Casa de Misericórdia de Chavantes` },
+  { src: `/clients/client_okamed-14.png`, alt: `Santa Casa de Misericórdia de São José do Rio Preto` },
+  { src: `/clients/client_okamed-15.png`, alt: `Santa Casa Poços de Caldas` },
+  { src: `/clients/client_okamed-16.png`, alt: `Hospital Regional Ilha Solteira` },
+  { src: `/clients/client_okamed-17.png`, alt: `Hospital Estadual Porto Primavera` },
+  { src: `/clients/client_okamed-18.png`, alt: `SAHISC – Serviço de Anestesiologia de São Carlos` },
+  { src: `/clients/client_okamed-19.png`, alt: `Uniube – Universidade de Uberaba` },
+  { src: `/clients/client_okamed-20.png`, alt: `Hospital Padre Colombo` },
+  { src: `/clients/client_okamed-21.png`, alt: `Associação Lar São Francisco de Assis na Providência de Deus – VJDA` },
+  { src: `/clients/client_okamed-22.png`, alt: `Hospital Estadual Mário Covas` },
+  { src: `/clients/client_okamed-23.png`, alt: `Misericórdia Óbidos` },
+  { src: `/clients/client_okamed-24.png`, alt: `OCRH – Centro de Reprodução Humana São José do Rio Preto` },
+  { src: `/clients/client_okamed-25.png`, alt: `Prefeitura Municipal da Estância Turística de Olímpia/SP` },
+  { src: `/clients/client_okamed-26.png`, alt: `Norden Hospital` },
+  { src: `/clients/client_okamed-27.png`, alt: `Hospital Padre Tiago na Providência de Deus` },
+  { src: `/clients/client_okamed-28.png`, alt: `Unimed Bebedouro` },
+  { src: `/clients/client_okamed-29.png`, alt: `Unimed Marília` },
+  { src: `/clients/client_okamed-30.png`, alt: `Unimed Catanduva` },
+  { src: `/clients/client_okamed-31.png`, alt: `Unimed Araçatuba` },
+  { src: `/clients/client_okamed-32.png`, alt: `Unimed São José do Rio Preto` },
+  { src: `/clients/client_okamed-33.png`, alt: `Unimed Assis` },
+  { src: `/clients/client_okamed.png`,    alt: `Hospital Padre Albino` },
+];
 
 const locale = Astro.currentLocale ?? (Astro.url.pathname.startsWith('/es/') ? 'es' : 'pt');
 const isEs = locale === 'es';

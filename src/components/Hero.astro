@@ -7,7 +7,7 @@ import { useTranslations } from "../i18n/utils";
 const t = useTranslations(Astro.currentLocale ?? (Astro.url.pathname.startsWith('/es/') ? 'es' : 'pt'));
 ---
 
-<section class="hero-section relative overflow-hidden">
+<section class="hero-section relative overflow-hidden min-h-[100svh] md:min-h-[90vh]">
 
   <HeroVideo />
 
@@ -50,8 +50,8 @@ const t = useTranslations(Astro.currentLocale ?? (Astro.url.pathname.startsWith(
   </div>
 
   <!-- CONTENT -->
-  <div class="relative z-20 max-w-7xl mx-auto px-6 flex items-start md:items-center pt-24 pb-24 md:pt-28 md:pb-28 min-h-[72vh] md:min-h-[80vh]">
-    <div class="max-w-2xl w-full bg-white/80 border border-white/70 backdrop-blur-3xl rounded-[32px] p-6 shadow-[0_24px_80px_rgba(11,46,78,0.10)] md:bg-transparent md:border-none md:backdrop-blur-none md:shadow-none md:p-0 md:max-w-3xl lg:max-w-5xl">
+  <div class="relative z-30 max-w-7xl mx-auto px-6 flex items-start pt-32 pb-72 md:pt-36 md:pb-72">
+    <div class="max-w-2xl w-full bg-white/80 border border-white/70 backdrop-blur-3xl rounded-[32px] p-6 shadow-[0_24px_80px_rgba(11,46,78,0.10)] md:bg-transparent md:border-none md:backdrop-blur-none md:shadow-none md:p-0 md:max-w-xl lg:max-w-2xl">
 
       <div class="section-label mb-6 animate-hero-1">
         {t.hero.tag}
@@ -97,7 +97,7 @@ const t = useTranslations(Astro.currentLocale ?? (Astro.url.pathname.startsWith(
 
 .hero-title {
   font-weight: 300;
-  font-size: clamp(64px, 10vw, 118px);
+  font-size: clamp(52px, 8.5vw, 105px);
   line-height: 0.92;
   letter-spacing: -0.04em;
   background: linear-gradient(180deg, #0B2E4E 0%, #1E537E 45%, #0B2E4E 100%);
