@@ -285,9 +285,9 @@ export const pt = {
       'Nossa equipe está pronta para apoiar sua instituição com soluções estratégicas em engenharia clínica.',
     cta: 'Chamar no WhatsApp',
     contacts: [
-      { label: 'WhatsApp',       value: '+55 (17) 99284-2335',                href: 'https://wa.me/5517992842335' },
+      { label: 'WhatsApp',       value: '+55 (17) 99610-7866',                href: 'https://wa.me/5517996107866' },
       { label: 'E-mail Comercial', value: 'comercial@okamed.com.br',           href: 'mailto:comercial@okamed.com.br' },
-      { label: 'Endereço',        value: 'Rua Siqueira Campos, 3520\nSão José do Rio Preto – SP', href: null },
+      { label: 'Endereço',        value: 'R. Fritz Jacobs, 2808 - Boa Vista\nSão José do Rio Preto – SP, 15025-500', href: null },
     ],
   },
 
